@@ -18,38 +18,55 @@ class LinkedList
   end
 
   def add_node(value)
-    current = @head
-    while current.next_node != nil
-      current = current.next_node
+    current_node = @head
+    while current_node.next_node != nil
+      current_node = current_node.next_node
     end
-    current.next_node = Node.new(value, nil)
-    # self
+    current_node.next_node = Node.new(value, nil)
+  end
+
+  def add_at_index(value, index)
+    current_node = @head
+    current_index = 1
+
+    if index == 0
+      linking_nodes = current_node
+      @head = Node.new(value, linking_nodes)
+    end
+    while current_index <= index
+      if current_index == index
+        linking_nodes = current_node.next_node
+        current_node.next_node = Node.new(value, linking_nodes)
+      end
+      current_node = current_node.next_node
+      current_index += 1
+    end
   end
 
   def delete_node(value)
-    current = @head
+    current_node = @head
     #checking if node matches the first
-    if current.value == value
+    if current_node.value == value
       @head = @head.next_node
     else
-      while current.next_node.value != value
-        current = current.next_node
+      while current_node.next_node.value != value
+        current_node = current_node.next_node
       end
-      if current.next_node != nil
-        current.next_node = current.next_node.next_node
+      if current_node.next_node != nil
+        current_node.next_node = current_node.next_node.next_node
       end
     end
   end
 
   def display
     # Traverse through the list till you hit the "nil" at the end
-    current = @head
+    current_node = @head
     full_list = []
-    while current.next_node != nil
-      full_list << current.value
-      current = current.next_node
+    while current_node.next_node != nil
+      full_list << current_node.value
+      current_node = current_node.next_node
     end
-      full_list <<current.value
+      full_list <<current_node.value
       puts full_list.join(" --> ")
   end
 
@@ -66,15 +83,24 @@ linked_list.add_node("7")
 
 
 
-puts "This displays the linked list with all the nodes"
+puts "INITIAL LIST"
 linked_list.display
 
 
-linked_list.delete_node("3")
+linked_list.add_at_index(0, 0)
+linked_list.add_at_index("INDEX 2", 2)
+linked_list.add_at_index("index 5", 5)
 
-puts "-------------------------------------------------"
-
-puts "This displays linked list AFTER it deletes a node"
+puts "AFTER ADDING NEW NODES AT SPECIFIC INDICIES"
 linked_list.display
 
-p linked_list
+
+linked_list.delete_node(0)
+linked_list.delete_node("INDEX 2")
+linked_list.delete_node("index 5")
+
+# puts "-------------------------------------------------"
+
+puts "DELETING ALL NEWLY ADD NODES TO GET ORIGINAL LINKED LIST"
+linked_list.display
+
