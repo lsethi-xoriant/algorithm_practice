@@ -17,7 +17,7 @@ class LinkedList
     @head = Node.new(value, nil)
   end
 
-  def add_node(value)
+  def add_node(value) # CREATES A NEW NODE AND ADDS IT TO THE END OF THE LIST
     current_node = @head
     while current_node.next_node != nil
       current_node = current_node.next_node
@@ -25,7 +25,7 @@ class LinkedList
     current_node.next_node = Node.new(value, nil)
   end
 
-  def add_at_index(value, index)
+  def add_at_index(value, index) # CREATES A NEW NODE AND ADDS IT AT A SPECIFIC INDEX
     current_node = @head
     current_index = 1
 
@@ -43,7 +43,7 @@ class LinkedList
     end
   end
 
-  def delete_node(value)
+  def delete_node(value) # DELETES NODE BASED ON VALUE
     current_node = @head
     #checking if node matches the first
     if current_node.value == value
@@ -58,6 +58,24 @@ class LinkedList
     end
   end
 
+  def delete_at_index(index)
+    current_node = @head
+    current_index = 1
+
+    if index == 0
+      @head = current_node.next_node
+    end
+
+    while current_index <= index
+      if current_index == index
+        linking_nodes = current_node.next_node.next_node
+        current_node.next_node = linking_nodes
+      end
+      current_node = current_node.next_node
+      current_index += 1
+    end
+  end
+
   def display
     # Traverse through the list till you hit the "nil" at the end
     current_node = @head
@@ -69,7 +87,6 @@ class LinkedList
       full_list <<current_node.value
       puts full_list.join(" --> ")
   end
-
 end
 
 linked_list = LinkedList.new("1")
@@ -95,11 +112,9 @@ puts "AFTER ADDING NEW NODES AT SPECIFIC INDICIES"
 linked_list.display
 
 
-linked_list.delete_node(0)
+linked_list.delete_at_index(0)
+linked_list.delete_at_index(4)
 linked_list.delete_node("INDEX 2")
-linked_list.delete_node("index 5")
-
-# puts "-------------------------------------------------"
 
 puts "DELETING ALL NEWLY ADD NODES TO GET ORIGINAL LINKED LIST"
 linked_list.display
