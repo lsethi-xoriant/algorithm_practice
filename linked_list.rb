@@ -84,8 +84,20 @@ class LinkedList
       full_list << current_node.value
       current_node = current_node.next_node
     end
-      full_list <<current_node.value
+      full_list << current_node.value
       puts full_list.join(" --> ")
+  end
+
+  def reverse_list
+    current_node = @head
+    previous_node = nil
+    while current_node != nil
+      next_node = current_node.next_node
+      current_node.next_node = previous_node
+      previous_node = current_node
+      current_node = next_node
+    end
+    @head = previous_node
   end
 end
 
@@ -117,5 +129,9 @@ linked_list.delete_at_index(4)
 linked_list.delete_node("INDEX 2")
 
 puts "DELETING ALL NEWLY ADD NODES TO GET ORIGINAL LINKED LIST"
+linked_list.display
+
+puts "REVERSING THE LIST"
+linked_list.reverse_list
 linked_list.display
 
