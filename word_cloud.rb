@@ -18,7 +18,8 @@ def word_cloud(long_string)
   split_sentance.each do |word|
     word_counter[word] += 1
   end
-  return word_counter
+  word_frequency_sorted = word_counter.sort_by { |key, value| value }.reverse
+  return word_frequency_sorted[0..5]
 end
 
 
